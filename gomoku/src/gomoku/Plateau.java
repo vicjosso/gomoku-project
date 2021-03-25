@@ -1,14 +1,21 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package gomoku;
+
+import java.util.ArrayList;
 
 /**
  *
  * @author Victor Josso
  */
 public class Plateau {
+    ArrayList<Case> plateau = new ArrayList<Case>();
     
+    
+    
+    void getRow(){
+        
+    }
+    
+    void getCol(){
+        
+    }
 }
