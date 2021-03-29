@@ -11,16 +11,25 @@ package gomoku;
  */
 public class Case {
     enum Color {BLACK, WHITE, NONE};
-    
+   
     final int row, col;
-    Color color = Color.NONE;
+    private Color color = Color.NONE;
     
+    /**
+     * 
+     * @param row
+     * @param col 
+     */
     public Case(int row, int col){
         this.row = row;
         this.col = col;        
     }
     
-    void SetColor(Color color){
+    /**
+     * 
+     * @param color 
+     */
+    void setColor(Color color){
         this.color = color;
     }
 }
