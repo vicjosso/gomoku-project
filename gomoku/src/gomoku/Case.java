@@ -1,35 +1,55 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package gomoku;
 
 /**
- *
+ *Class Case regroupant les coordonnées de chaque case ainsi que leur couleur
+ * 
  * @author Victor Josso
  */
 public class Case {
-    enum Color {BLACK, WHITE, NONE};
    
-    final int row, col;
-    private Color color = Color.NONE;
+    private final int row, col;
+    private Color color;
     
     /**
-     * 
+     * Constructeur de la classe Case
      * @param row
      * @param col 
      */
     public Case(int row, int col){
         this.row = row;
-        this.col = col;        
+        this.col = col;
+        this.color = Color.NONE;
     }
     
     /**
-     * 
+     * Initialise une couleur pour une instance de la classe
      * @param color 
      */
-    void setColor(Color color){
+    public void setColor(Color color){
         this.color = color;
+    }
+    
+    /**
+     * Permet d'obtenir la couleur de la case qui nous interesse 
+     * @return la couleur de la case 
+     */
+    public Color getColor(){
+        return this.color;
+    }
+    
+    /**
+     * Getteur permetant d'obtenir la ligne
+     * @return le nombre de la ligne où se situe la case
+     */
+    public int getRow(){
+        return this.row;
+    }
+    
+    /**
+     * Getteur permettant d'obtenir la colonne
+     * @return le nombre de colonne où se situe la case
+     */
+    public int getCol(){
+        return this.col;
     }
 }
