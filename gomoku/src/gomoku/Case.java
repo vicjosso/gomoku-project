@@ -12,8 +12,8 @@ public class Case {
     
     /**
      * Constructeur de la classe Case
-     * @param row
-     * @param col 
+     * @param row, ligne de la case
+     * @param col, colonne de la case
      */
     public Case(int row, int col){
         this.row = row;

@@ -57,8 +57,16 @@ public class TestGomoku {
         plat1.setCase(5, 5, Color.WHITE); 
         plat2.setCase(10, 20, Color.BLACK);
         
+    }
+    
+    @Test
+    public void testAffichagePlateau(){
+        //création d'un nouveau plateau
+        Plateau plat1 = new Plateau(10, 10);
+        
         //affichage du tableau
         plat1.afficheTab();
+        
     }
 
 }
