@@ -92,44 +92,47 @@ public class Plateau {
         //affichage de la ligne du haut
         System.out.println("");
         System.out.print("  +");
-        for(int i = 1 ; i < this.colNb + 1 ; i++){ System.out.print("--"); }
+        for(int i = 1 ; i < this.colNb + 1 ; i++)
+        { 
+            if(i<10)System.out.print("--");
+            else System.out.print("---");
+        }
         System.out.print("+");
         System.out.println("");
         
         //affichag de toutes les cases
         for(int i = 1 ; i < this.rowNb + 1 ; i++)
         {
+            if(i<10){System.out.print(i + " ");}
+            else{System.out.print(i);}
+            System.out.print("|");
+                        
             for(int j = 1 ; j < this.colNb + 1 ; j++)
             {
-                /*
-                if(j == 3){System.out.print(i);}
-                else if(j == 5){System.out.print(" |");}
-                else if(){System.out.print("|");}
-                //else if(this.getCase(i-1, j-1) == Color.NONE){System.out.print("  ");}
-                */
-
-                switch(j)
-                {
-                    case 3:
-                        System.out.print(i);
-                        break;
-                    case 5:
-                        System.out.print(" |");
-                        break;
-                    default:
-                        if(j == colMax){System.out.print("|");}
-                        else if(this.getCase(i-1, j-1) == Color.NONE){System.out.print("  ");} //décale tout le plateau :((
-                }
+                if(j<10) {System.out.print(affichageCase(i-1, j-1));}
+                else {System.out.print(" "+affichageCase(i-1, j-1));}
             }
+            System.out.print("|");
             System.out.println("");
         }
         
         //affichage de la ligne du bas
         System.out.print("  +");
-        for(int i = 1 ; i < this.colNb + 1 ; i++){ System.out.print("--"); }
+        for(int i = 1 ; i < this.colNb + 1 ; i++)
+        { 
+            if(i<10)System.out.print("--");
+            else System.out.print("---");    
+        }
         System.out.print("+");
         System.out.println("");
                
+    }
+    
+    private String affichageCase(int row, int col){
+        String contenuCase = ". ";
+        if(this.getCase(row, col)== Color.BLACK){contenuCase = "X ";}
+        else if(this.getCase(row, col)== Color.WHITE){contenuCase = "O ";}
+        return contenuCase;
     }
     
 }

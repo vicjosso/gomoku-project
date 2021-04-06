@@ -62,10 +62,22 @@ public class TestGomoku {
     @Test
     public void testAffichagePlateau(){
         //création d'un nouveau plateau
-        Plateau plat1 = new Plateau(10, 10);
+        Plateau plat1 = new Plateau(25, 15);
+        
+        //création de points
+        plat1.setCase(5, 5, Color.WHITE);
+        plat1.setCase(10, 10, Color.BLACK);
         
         //affichage du tableau
         plat1.afficheTab();
+        
+    }
+    
+    @Test
+    public void posagePions(){
+        //création d'un plateau
+        Plateau plat1 = new Plateau(25, 15);
+        
         
     }
 
