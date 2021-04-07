@@ -10,6 +10,9 @@ public class Appli {
     
     static Scanner in = new Scanner(System.in);
     
+    /**
+     * Affiche le menu de jeu et permet de lancer une partie
+     */
     static void menu(){
         boolean loop = true;
         
@@ -44,15 +47,50 @@ public class Appli {
         }
     }
     
+    /**
+     * Lance une partie de joueur contre IA
+     */
     public static void againstIA(){
+        
+        int row = 0;
+        int col = 0;
+        
+        boolean win = false;
+        
+        //Demande nombre de ligne avec vérification de la validité de l'indice
         System.out.println("");
         System.out.print("Veuillez entrer le nombre de ligne :");
-        String row = in.nextLine().trim();
+        String ligne = in.nextLine().trim();
         
+        try{
+            row = Integer.parseInt(ligne);
+            if(row < 0 || row > 99){ System.out.println("Indice invalide"); return; }
+        } catch (Exception e){
+            System.out.println("Tu n'as pas rentré un nombre");
+        }
+        
+        //Demande nombre de colonne avec vérification de la validité de l'indice
+        System.out.print("Veuillez entrer le nombre de colonne :");
+        String colonne = in.nextLine().trim();
+        
+        try{
+            col = Integer.parseInt(colonne);
+            if(col < 0 || col > 99){ System.out.println("Indice invalide"); return; }
+        } catch (Exception e){
+            System.out.println("Tu n'as pas rentré un nombre");
+        }
+        
+        System.out.println("");
+        System.out.println("-> Création du tableau en cours....");
+        System.out.println("");
+        
+        Plateau platJeu = new Plateau(row, col);
+        
+        while(!win){
+            
+        }
         /*
-        Plan d'action:
-            -demander les lignes et les colonnes, en faisant gaffe soit en utilisant un int soit string a convertir, message d'erreur quand input faux
-            -construire le tableau 
+        Plan d'action: 
             -avancer joueur et IA pour implementer l'input de commande, en deux fois aussi
             -faire des tests
             -afficher le tableau et l'update a chaque tour, implementer la victoire, condition de placement aussi
