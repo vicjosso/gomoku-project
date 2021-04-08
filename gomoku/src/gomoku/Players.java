@@ -5,8 +5,9 @@ package gomoku;
  * @author Victor Josso
  */
 public interface Players {
-    static String name = null;
     
-    Case poseJeu();
+    final Color couleur = Color.NONE;
+    
+    Case poseJeu(Plateau platJeu);
     
 }
