@@ -15,12 +15,15 @@ public class Joueur implements Players {
     @Override
     public Case poseJeu(Plateau platJeu){
         
+        Utils verif = new Utils();
+        
         int row = 0;
         int col = 0;
         
-        boolean rowOk = false;
-        boolean colOk = false;
         boolean valide = false;
+        
+        String ligne;
+        String colonne;
         
         do {
             
@@ -28,32 +31,22 @@ public class Joueur implements Players {
             do{
                 System.out.println("");
                 System.out.print("Insérez la ligne où vous voulez placer votre pion :");
-                String ligne = in.nextLine().trim();
-                try{
-                        row = Integer.parseInt(ligne);
-                        if(row < 0 || row > platJeu.getNbRows()){ System.out.println("Indice invalide");}
-                        else { rowOk = true; }
-                    } catch (Exception e){
-                        System.out.println("Tu n'as pas rentré un nombre");
-                    }
-            }while(!rowOk);
+                ligne = in.nextLine().trim();
+                
+            }while(!verif.inputValidation(ligne, platJeu.getNbRows()));
+            row = Integer.parseInt(ligne);
             
             //vérification du placement pion colonne
             do{
                 System.out.println("");
                 System.out.print("Insérez la colonne où vous voulez placer votre pion :");
-                String colonne = in.nextLine().trim();
-                try{
-                        col = Integer.parseInt(colonne);
-                        if(col < 0 || col > platJeu.getNbCols()){ System.out.println("Indice invalide");}
-                        else { colOk = true; }
-                    } catch (Exception e){
-                        System.out.println("Tu n'as pas rentré un nombre");
-                    }
-            }while(!colOk);
+                colonne = in.nextLine().trim();
+                
+            }while(!verif.inputValidation(colonne, platJeu.getNbCols()));
+            col = Integer.parseInt(colonne);
             
-            if(platJeu.getCase(row, col) == Color.NONE){ valide = true;}
-            else { System.out.println("-> Placement invalide"); rowOk = false; colOk = false; };
+            if(platJeu.getCase(row-1, col-1) == Color.NONE){ valide = true;} //verifier offset
+            else { System.out.println("-> Placement invalide"); };
         } while(!valide);
         
         Case pose = new Case(row, col);

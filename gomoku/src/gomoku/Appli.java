@@ -52,28 +52,26 @@ public class Appli {
      */
     public static void againstIA(){
         
+        Utils verif = new Utils();
+        
+        Case caseJeu = new Case(0, 0);
+        
         int row = 0;
         int col = 0;
         
-        boolean rowOk = false;
-        boolean colOk = false;
         boolean win = false;
         
-        
-        
+        String ligne;
+        String colonne;
+   
         do{
             //Demande nombre de ligne avec vérification de la validité de l'indice
             System.out.println("");
-            System.out.print("Veuillez entrer le nombre de ligne :");
-            String ligne = in.nextLine().trim();
-            try{
-                row = Integer.parseInt(ligne);
-                if(row < 0 || row > 99){ System.out.println("Indice invalide");}
-                else { rowOk = true; }
-            } catch (Exception e){
-                System.out.println("Tu n'as pas rentré un nombre");
-            }
-        } while(!rowOk);
+            System.out.print("Veuillez entrer le nombre de ligne :"); 
+            ligne = in.nextLine().trim();
+            
+        } while(!verif.inputValidation(ligne, 99));
+        row = Integer.parseInt(ligne);
         
         if(row == 69){System.out.println("Nice");}
         
@@ -81,16 +79,10 @@ public class Appli {
             //Demande nombre de colonne avec vérification de la validité de l'indice
             System.out.println("");
             System.out.print("Veuillez entrer le nombre de colonne :");
-            String colonne = in.nextLine().trim();
-
-            try{
-                col = Integer.parseInt(colonne);
-                if(col < 0 || col > 99){ System.out.println("Indice invalide");}
-                else { colOk = true; }
-            } catch (Exception e){
-                System.out.println("Tu n'as pas rentré un nombre");
-            }
-        } while(!colOk);
+            colonne = in.nextLine().trim(); 
+            
+        } while(!verif.inputValidation(colonne, 99));
+        col = Integer.parseInt(colonne);
         
         if(col == 69){System.out.println("Nice");}
         
@@ -107,25 +99,28 @@ public class Appli {
         
         while(!win){
                  
-            joueur.poseJeu(platJeu);
+            caseJeu = joueur.poseJeu(platJeu);
+            platJeu.setCase(caseJeu.getRow()-1, caseJeu.getCol()-1, Color.WHITE); //verifier offset
             
             platJeu.afficheTab();
             
+            //verif du plateau si victoire, implementer class game et methode check placement et check victoire
+            
             ia.poseJeu(platJeu);
+            platJeu.setCase(caseJeu.getRow()-1, caseJeu.getCol()-1, Color.BLACK); //verifier offset
             
             platJeu.afficheTab();
             
         }
         /*
         Plan d'action: 
-            -mettre ne place la possibilité de jouer
-            -avancer joueur et IA pour implementer l'input de commande, en deux fois aussi 
+            -mettre ne place la possibilité de jouer (moyen fait), condition de placement aussi
+            -avancer IA pour implementer l'input de commande, en deux fois aussi 
             -faire des tests
-            -afficher le tableau et l'update a chaque tour, implementer la victoire, condition de placement aussi
-            -ajoute le tableau en param/attribut du joueur pour verifier la possibilité de placement
-            -faire la meme pour les autres modes de jeux
-            -implementer des noms de bots / niveau
+            -implementer la victoire
             -implémenter les exceptions
+            -faire la meme pour les autres modes de jeux
+            -implementer des noms de bots / niveau (option)
         */
     }
 }
