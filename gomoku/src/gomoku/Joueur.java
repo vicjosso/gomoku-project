@@ -12,6 +12,12 @@ public class Joueur implements Players {
     
     final Color couleur = Color.WHITE;
     
+    
+    /**
+     * Determine en fonction du choix du joueur la pose d'un pion
+     * @param platJeu, plateau sur lequel le jeu se déroule
+     * @return pose, case sélectionnée par le joueur
+     */
     @Override
     public Case poseJeu(Plateau platJeu){
         
@@ -45,7 +51,7 @@ public class Joueur implements Players {
             }while(!verif.inputValidation(colonne, platJeu.getNbCols()));
             col = Integer.parseInt(colonne);
             
-            if(platJeu.getCase(row-1, col-1) == Color.NONE){ valide = true;} //verifier offset
+            if(platJeu.getCase(row, col) == Color.NONE){ valide = true;} //verifier offset
             else { System.out.println("-> Placement invalide"); };
         } while(!valide);
         

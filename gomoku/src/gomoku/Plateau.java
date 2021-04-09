@@ -56,7 +56,7 @@ public class Plateau {
      * @return la case demander
      */
     public Color getCase(int row, int col){
-        return this.plateau[row][col].getColor();
+        return this.plateau[row-1][col-1].getColor();
     }
             
     /**
@@ -70,20 +70,9 @@ public class Plateau {
     }
     
     /**
-     * Permet de savoir si c'est le à notre tour de jouer
-     * @param color, couleur du joueur actuel
-     * @return true si c'est à notre tour de jouer
-     */
-    public boolean getTurn(Color color){
-        return false;
-    }
-    
-    /**
      * Permet d'afficher le tableau de jeu
      */
     public void afficheTab(){
-        
-        int colMax = this.colNb;
         
         //affichage des chiffres des colonnes
         System.out.print("  ");
@@ -130,8 +119,8 @@ public class Plateau {
     
     private String affichageCase(int row, int col){
         String contenuCase = ". ";
-        if(this.getCase(row, col)== Color.BLACK){contenuCase = "X ";}
-        else if(this.getCase(row, col)== Color.WHITE){contenuCase = "O ";}
+        if(this.getCase(row+1, col+1)== Color.BLACK){contenuCase = "X ";}
+        else if(this.getCase(row+1, col+1)== Color.WHITE){contenuCase = "O ";}
         return contenuCase;
     }
     
