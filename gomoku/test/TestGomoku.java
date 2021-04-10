@@ -2,6 +2,7 @@
 
 import gomoku.Case;
 import gomoku.Color;
+import gomoku.Game;
 import gomoku.Plateau;
 import static junit.framework.Assert.assertEquals;
 import org.junit.Test;
@@ -73,11 +74,65 @@ public class TestGomoku {
         
     }
     
+    
+    // non fonctionnel pour des raisons inconnues...
     @Test
-    public void posagePions(){
-        //création d'un plateau
-        Plateau plat1 = new Plateau(25, 15);
+    public void testCheckWin(){
+        //création du tableau
+        Plateau plat = new Plateau(10, 10);
+        Game jeu = new Game();
         
+        //placement des pions
+        plat.setCase(1, 1, Color.WHITE);
+        plat.setCase(1, 2, Color.WHITE);
+        plat.setCase(1, 3, Color.WHITE);
+        plat.setCase(1, 4, Color.WHITE);
+        plat.setCase(1, 5, Color.WHITE);
+        
+        //affichage tableau
+        plat.afficheTab();
+        
+        //vérification de la victoire
+        assertEquals(jeu.checkWin(plat), true);
+        
+        //placement des pions
+        plat.setCase(2, 3, Color.BLACK);
+        plat.setCase(3, 3, Color.BLACK);
+        plat.setCase(4, 3, Color.BLACK);
+        plat.setCase(5, 3, Color.BLACK);
+        plat.setCase(6, 3, Color.BLACK);
+        
+        //affichage tableau
+        plat.afficheTab();
+        
+        //vérification de la victoire
+        assertEquals(jeu.checkWin(plat), true);
+        
+        //placement des pions
+        plat.setCase(10, 10, Color.BLACK);
+        plat.setCase(9, 9, Color.BLACK);
+        plat.setCase(8, 8, Color.BLACK);
+        plat.setCase(7, 7, Color.BLACK);
+        plat.setCase(6, 6, Color.BLACK);
+        
+        //affichage tableau
+        plat.afficheTab();
+        
+        //vérification de la victoire
+        assertEquals(jeu.checkWin(plat), true);
+        
+        //placement des pions
+        plat.setCase(10, 1, Color.WHITE);
+        plat.setCase(9, 2, Color.WHITE);
+        plat.setCase(8, 3, Color.WHITE);
+        plat.setCase(7, 4, Color.WHITE);
+        plat.setCase(6, 5, Color.WHITE);
+        
+        //affichage tableau
+        plat.afficheTab();
+        
+        //vérification de la victoire
+        assertEquals(jeu.checkWin(plat), true);
         
     }
 
