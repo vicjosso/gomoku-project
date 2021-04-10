@@ -1,5 +1,6 @@
 package gomoku;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -10,20 +11,117 @@ public class Game {
     
     static Scanner in = new Scanner(System.in);
     
+    
+    public void afficheRegles(){
+        System.out.println("Affichage des règles de jeu du gomoku :");
+        System.out.println("    -les joueurs posent des pions à tour de rôle dans une case vide.");
+        System.out.println("    -on doit jouer à côtés d'une case déjà occupée, sauf au premier coup.");
+        System.out.println("    -le gagnant est lre premier qui aligne 5 pions selon une ligne, colonne, ou diagonale.");
+        System.out.println("    -la prtie est nulle si toutes les cases sont occupées.");
+        System.out.println("");
+    }
+    
     /**
      * Lance une partie de joueur contre une IA
      */
     public void againstIA(){
         
-        Utils verif = new Utils();
-        
         Case caseJeu = new Case(0, 0);
-        
-        int row = 0;
-        int col = 0;
         
         boolean win = false;
         boolean joueurWin = false;
+        
+        ArrayList<String> pile = new ArrayList<String>();
+        
+        Plateau platJeu = creatBoard();
+        
+        Joueur joueur = new Joueur();
+        IA ia = new IA();
+        
+        platJeu.afficheTab();
+        
+        while(!win){
+                 
+            caseJeu = joueur.poseJeu(platJeu);
+            platJeu.setCase(caseJeu.getRow(), caseJeu.getCol(), Color.WHITE);
+            pile.add("Le joueur joue sur la ligne " + caseJeu.getRow() + " et sur la colonne " + caseJeu.getCol());
+            
+            platJeu.afficheTab();
+            if(checkWin(platJeu)){joueurWin = true; break;}
+            if(checkDraw(platJeu)){break;}
+            
+            caseJeu = ia.poseJeu(platJeu);
+            platJeu.setCase(caseJeu.getRow(), caseJeu.getCol(), Color.BLACK);
+            pile.add("L'IA joue sur la ligne " + caseJeu.getRow() + " et sur la colonne " + caseJeu.getCol());
+            
+            platJeu.afficheTab();
+            win = checkWin(platJeu);
+            if(checkDraw(platJeu)){break;}
+            
+        }
+        
+        if(win){
+            boolean loop = true;
+            if(joueurWin){ System.out.println("-> Vous avez gagnez"); } else {System.out.println("-> Victoire de l'IA");}
+            System.out.println("Voulez-vous voir l'historique de placement des pions?");
+            
+            String commande = in.nextLine().trim();
+            
+            while(loop){
+                switch (commande){
+                    case "y":
+                        for(String s : pile){System.out.println(s);}
+                        loop = false;
+                        break;
+                    case "n":
+                        loop = false;
+                        break;
+                        
+                    default:
+                        System.out.println("");
+                }
+            }
+        }
+        /*
+        Plan d'action: 
+            -condition de placement aussi
+            -avancer IA pour implementer l'input de commande (moyen)
+            -faire la meme pour les autres modes de jeux
+            -option /quit avec exception (galere)
+        */
+    }
+    
+    
+    /**
+     * Lance une partie joueur contre joueur
+     */
+    public void againstPlayer(){
+        
+        Case caseJeu = new Case(0, 0);
+        
+        boolean win = false;
+        boolean joueurWin = false;
+        
+        Plateau platJeu = creatBoard();
+        
+        Joueur joueur1 = new Joueur();
+        Joueur joueur2 = new Joueur();
+        
+        platJeu.afficheTab();
+        
+        
+    }
+    
+    /**
+     * Permet de créer le tableau en fonction des paramètres rentré par l'utilisateur
+     * @return le tableau créer
+     */
+    private Plateau creatBoard(){
+        
+        Utils verif = new Utils();
+        
+        int row = 0;
+        int col = 0;
         
         String ligne;
         String colonne;
@@ -55,47 +153,32 @@ public class Game {
         System.out.println("");
         
         Plateau platJeu = new Plateau(row, col);
-        
-        Joueur joueur = new Joueur();
-        Joueur joueur2 = new Joueur();
-        IA ia = new IA();
-        
-        platJeu.afficheTab();
-        
-        while(!win){
-                 
-            caseJeu = joueur.poseJeu(platJeu);
-            platJeu.setCase(caseJeu.getRow(), caseJeu.getCol(), Color.WHITE); 
-            
-            
-            platJeu.afficheTab();
-            if(checkWin(platJeu)){joueurWin = true; break;}
-            
-            //verif du plateau si victoire, implementer class game et methode check placement et check victoire
-            
-            //caseJeu = ia.poseJeu(platJeu);
-            caseJeu = joueur2.poseJeu(platJeu);
-            platJeu.setCase(caseJeu.getRow(), caseJeu.getCol(), Color.BLACK);
-            
-            platJeu.afficheTab();
-            win = checkWin(platJeu);
-            
-        }
-        
-        if(win){
-            if(joueurWin){ System.out.println("-> Vous avez gagnez"); } else {System.out.println("-> Victoire de l'IA");}
-        }
-        /*
-        Plan d'action: 
-            -condition de placement aussi
-            -avancer IA pour implementer l'input de commande (moyen)
-            -faire des tests
-            -implementer la victoire //non fonctionnel
-            -implémenter les exceptions
-            -faire la meme pour les autres modes de jeux
-            -implementer des noms de bots / niveau (option)
-        */
+        return platJeu;
     }
+    
+    /**
+     * Vérifie si il reste de la place sur le plateau après le placement d'un pion
+     * @param platJeu, plateau sur lequel se déroule la partie
+     * @return true si il n'y a plus de place pour jouer 
+     */
+    public boolean checkDraw(Plateau platJeu){
+        
+        for(int i = 1; i < platJeu.getNbRows()+1; i++)
+        {
+            for(int j = 1; j < platJeu.getNbCols()+1; j++)
+            {
+                //check espace libre
+                if(platJeu.getCase(i, j) == Color.NONE)
+                {
+                    return false;
+                }
+            
+            }
+        }
+        return true;
+    }
+    
+    
     
     /**
      * Vérifie si une des combinaisons sur le plateau rapporte la victoire

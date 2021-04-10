@@ -4,6 +4,7 @@ import gomoku.Case;
 import gomoku.Color;
 import gomoku.Game;
 import gomoku.Plateau;
+import java.util.ArrayList;
 import static junit.framework.Assert.assertEquals;
 import org.junit.Test;
 

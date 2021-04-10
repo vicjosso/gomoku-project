@@ -22,7 +22,7 @@ public class Appli {
             System.out.println("0) Quitter");
             System.out.println("1) Lancer une partie contre une IA");
             System.out.println("2) Lancer une partie contre un Joueur");
-            System.out.println("3) Lancer une partie custom");
+            System.out.println("3) Voir les règles");
             String commande = in.nextLine().trim();
             switch (commande) {
                 case "0":
@@ -34,11 +34,11 @@ public class Appli {
                     game.againstIA();
                     break;
                 case "2":
-                    System.out.println("-> Fonctionnalité non-implémanté");
+                    System.out.println("-> Lancment du mode de jeu contre un Joueur....");
+                    game.againstPlayer();
                     break;
                 case "3":
-                    System.out.println("-> Fonctionnalité non-implémanté");
-                    
+                    game.afficheRegles();
                     break;
                 case "69":
                     System.out.println("Nice");
