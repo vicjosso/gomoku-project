@@ -1,7 +1,5 @@
 package gomoku;
 
-import java.util.ArrayList;
-
 /**
  * Class plateau, regroupant l'ensemble des cases, du nombre de lignes et de colonnes
  * 
@@ -11,8 +9,6 @@ public class Plateau {
     
     final private int rowNb;
     final private int colNb;
-    
-    private Color turn;
     
     private Case[][] plateau;
     
@@ -117,6 +113,12 @@ public class Plateau {
                
     }
     
+    /**
+     * Affiche une case
+     * @param row, la ligne
+     * @param col, la colonne
+     * @return, ce qui doit être affiché
+     */
     private String affichageCase(int row, int col){
         String contenuCase = ". ";
         if(this.getCase(row+1, col+1)== Color.BLACK){contenuCase = "X ";}

@@ -3,7 +3,7 @@ package gomoku;
 import java.util.ArrayList;
 
 /**
- *
+ * Classe permettant à l'iA de jouer
  * @author Victor Josso
  */
 public class IA implements Players{

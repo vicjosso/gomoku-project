@@ -3,7 +3,7 @@ package gomoku;
 import java.util.Scanner;
 
 /**
- *
+ * Classe permettant au joueur de jouer
  * @author Victor Josso
  */
 public class Joueur implements Players {

@@ -4,14 +4,16 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- *
+ * Classe permettant de lancer une partie et regroupant tout ce qui est lié à cette dernière
  * @author Victor Josso
  */
 public class Game {
     
     static Scanner in = new Scanner(System.in);
     
-    
+    /**
+     * Permet d'afficher les règles du jeu
+     */
     public void afficheRegles(){
         System.out.println("Affichage des règles de jeu du gomoku :");
         System.out.println("    -les joueurs posent des pions à tour de rôle dans une case vide.");
@@ -65,14 +67,7 @@ public class Game {
         }
         
         resultGame(win, joueurWin1, pile);
-        
-        
-        /*
-        Plan d'action: 
-            -condition de placement aussi
-            -avancer IA pour implementer l'input de commande (moyen)
-            -option /quit avec exception (galere)
-        */
+
     }
     
     
@@ -126,7 +121,7 @@ public class Game {
     }
     
     /**
-     * Permet de créer le tableau en fonction des paramètres rentré par l'utilisateur
+     * Permet de créer le tableau en fonction des paramètres rentrés par l'utilisateur
      * @return le tableau créer
      */
     private Plateau creatBoard(){

@@ -1,5 +1,3 @@
-
-
 import gomoku.Case;
 import gomoku.Color;
 import gomoku.Game;

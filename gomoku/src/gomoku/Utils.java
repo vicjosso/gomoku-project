@@ -3,7 +3,7 @@ package gomoku;
 import java.util.ArrayList;
 
 /**
- *
+ * Classe regroupant des fonctions utlitaires particulières
  * @author Victor Josso
  */
 public class Utils {
