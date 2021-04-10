@@ -29,7 +29,7 @@ public class Game {
         Case caseJeu = new Case(0, 0);
         
         boolean win = false;
-        boolean joueurWin = false;
+        boolean joueurWin1 = false;
         
         ArrayList<String> pile = new ArrayList<String>();
         
@@ -47,7 +47,7 @@ public class Game {
             pile.add("Le joueur joue sur la ligne " + caseJeu.getRow() + " et sur la colonne " + caseJeu.getCol());
             
             platJeu.afficheTab();
-            if(checkWin(platJeu)){joueurWin = true; break;}
+            if(checkWin(platJeu)){joueurWin1 = true; break;}
             if(checkDraw(platJeu)){break;}
             
             caseJeu = ia.poseJeu(platJeu);
@@ -60,33 +60,13 @@ public class Game {
             
         }
         
-        if(win){
-            boolean loop = true;
-            if(joueurWin){ System.out.println("-> Vous avez gagnez"); } else {System.out.println("-> Victoire de l'IA");}
-            System.out.println("Voulez-vous voir l'historique de placement des pions?");
-            
-            String commande = in.nextLine().trim();
-            
-            while(loop){
-                switch (commande){
-                    case "y":
-                        for(String s : pile){System.out.println(s);}
-                        loop = false;
-                        break;
-                    case "n":
-                        loop = false;
-                        break;
-                        
-                    default:
-                        System.out.println("");
-                }
-            }
-        }
+        resultGame(win, joueurWin1, pile);
+        
+        
         /*
         Plan d'action: 
             -condition de placement aussi
             -avancer IA pour implementer l'input de commande (moyen)
-            -faire la meme pour les autres modes de jeux
             -option /quit avec exception (galere)
         */
     }
@@ -100,7 +80,9 @@ public class Game {
         Case caseJeu = new Case(0, 0);
         
         boolean win = false;
-        boolean joueurWin = false;
+        boolean joueurWin1 = false;
+        
+        ArrayList<String> pile = new ArrayList<String>();
         
         Plateau platJeu = creatBoard();
         
@@ -109,6 +91,27 @@ public class Game {
         
         platJeu.afficheTab();
         
+        while(!win){
+                 
+            caseJeu = joueur1.poseJeu(platJeu);
+            platJeu.setCase(caseJeu.getRow(), caseJeu.getCol(), Color.WHITE);
+            pile.add("Le joueur joue sur la ligne " + caseJeu.getRow() + " et sur la colonne " + caseJeu.getCol());
+            
+            platJeu.afficheTab();
+            if(checkWin(platJeu)){joueurWin1 = true; break;}
+            if(checkDraw(platJeu)){break;}
+            
+            caseJeu = joueur2.poseJeu(platJeu);
+            platJeu.setCase(caseJeu.getRow(), caseJeu.getCol(), Color.BLACK);
+            pile.add("L'IA joue sur la ligne " + caseJeu.getRow() + " et sur la colonne " + caseJeu.getCol());
+            
+            platJeu.afficheTab();
+            win = checkWin(platJeu);
+            if(checkDraw(platJeu)){break;}
+            
+        }
+        
+        resultGame(win, joueurWin1, pile);
         
     }
     
@@ -316,4 +319,34 @@ public class Game {
         return false;
     }
     
+    /**
+     * Affiche les résultats de la partie
+     * @param win, symobolise la victoire
+     * @param winJoueur1, true si c'est le joueur 1 qui a gagné, false si c'est le 2
+     * @param pile, list des coups joués
+     */
+    public void resultGame(boolean win, boolean winJoueur1, ArrayList<String> pile){
+        if(win){
+            
+            if(winJoueur1){ System.out.println("-> Vous avez gagnez"); } else {System.out.println("-> Victoire de l'adversaire");}
+        } else {System.out.println("-> Vous avez fait une égalité");}
+        
+        System.out.println("Voulez-vous voir l'historique de placement des pions?");
+            boolean loop = true;
+            String commande = in.nextLine().trim();
+            
+            while(loop){
+                switch (commande){
+                    case "y":
+                        for(String s : pile){System.out.println(s);}
+                        loop = false;
+                        break;
+                    case "n":
+                        loop = false;
+                        break;
+                    default:
+                        System.out.println("-> Commande inconnue '" + commande + "'");
+                }
+            }
+    }
 }
