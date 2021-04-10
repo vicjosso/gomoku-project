@@ -4,6 +4,7 @@ import gomoku.Case;
 import gomoku.Color;
 import gomoku.Game;
 import gomoku.Plateau;
+import gomoku.Utils;
 import java.util.ArrayList;
 import static junit.framework.Assert.assertEquals;
 import org.junit.Test;
@@ -14,6 +15,8 @@ import org.junit.Test;
  * @author Victor Josso
  */
 public class TestGomoku {
+    
+    //Test de la classe case
     
     @Test
     public void testCase(){
@@ -38,6 +41,8 @@ public class TestGomoku {
         assertEquals(p1.getColor(), Color.WHITE);
         
     }
+    
+    //test de la classe tableau
     
     @Test
     public void testPlateau(){
@@ -75,7 +80,7 @@ public class TestGomoku {
         
     }
     
-    
+    //Test de la classe game
     // non fonctionnel pour des raisons inconnues...
     @Test
     public void testCheckWin(){
@@ -96,44 +101,110 @@ public class TestGomoku {
         //vérification de la victoire
         assertEquals(jeu.checkWin(plat), true);
         
+        
+        Plateau plat1 = new Plateau(10, 10);
+        
         //placement des pions
-        plat.setCase(2, 3, Color.BLACK);
-        plat.setCase(3, 3, Color.BLACK);
-        plat.setCase(4, 3, Color.BLACK);
-        plat.setCase(5, 3, Color.BLACK);
-        plat.setCase(6, 3, Color.BLACK);
+        plat1.setCase(2, 3, Color.BLACK);
+        plat1.setCase(3, 3, Color.BLACK);
+        plat1.setCase(4, 3, Color.BLACK);
+        plat1.setCase(5, 3, Color.BLACK);
+        plat1.setCase(6, 3, Color.BLACK);
         
         //affichage tableau
-        plat.afficheTab();
+        plat1.afficheTab();
         
         //vérification de la victoire
-        assertEquals(jeu.checkWin(plat), true);
+        assertEquals(jeu.checkWin(plat1), true);
+        
+        Plateau plat2 = new Plateau(10, 10);
         
         //placement des pions
-        plat.setCase(10, 10, Color.BLACK);
-        plat.setCase(9, 9, Color.BLACK);
-        plat.setCase(8, 8, Color.BLACK);
+        plat2.setCase(10, 10, Color.BLACK);
+        plat2.setCase(9, 9, Color.BLACK);
+        plat2.setCase(8, 8, Color.BLACK);
+        plat2.setCase(7, 7, Color.BLACK);
+        plat2.setCase(6, 6, Color.BLACK);
+        
+        //affichage tableau
+        plat2.afficheTab();
+        
+        //vérification de la victoire
+        assertEquals(jeu.checkWin(plat2), true);
+        
+        Plateau plat3 = new Plateau(10, 10);
+        
+        //placement des pions
+        plat3.setCase(10, 1, Color.WHITE);
+        plat3.setCase(9, 2, Color.WHITE);
+        plat3.setCase(8, 3, Color.WHITE);
+        plat3.setCase(7, 4, Color.WHITE);
+        plat3.setCase(6, 5, Color.WHITE);
+        
+        //affichage tableau
+        plat3.afficheTab();
+        
+        //vérification de la victoire
+        assertEquals(jeu.checkWin(plat3), true);
+        
+    }
+    
+    @Test
+    public void testGame(){
+        Plateau plat = new Plateau(2, 2);
+        Game jeu = new Game();
+        //ajout des pions
+        plat.setCase(1, 1, Color.WHITE);
+        plat.setCase(2, 2, Color.WHITE);
+        plat.setCase(1, 2, Color.BLACK);
+        plat.setCase(2, 1, Color.BLACK);
+        
+        //test checkDraw
+        assertEquals(jeu.checkDraw(plat), true);
+        
+        plat = new Plateau(10, 10);
+        
+        
+        ArrayList<String> played = new ArrayList<String>();
+        played.add("patate");
+        played.add("miam");
+        
+        //test resultGame
+        jeu.resultGame(true, false, played);
+        jeu.resultGame(true, true, played);
+        jeu.resultGame(false, false, played);
+        
+    }
+    
+    //test de la classe Utils
+    
+    @Test
+    public void testUtils(){
+        Plateau plat = new Plateau(10, 10);
+        Utils verif = new Utils();
+        
+        //ajout de pions dans le plateau
+        plat.setCase(2, 2, Color.WHITE);
         plat.setCase(7, 7, Color.BLACK);
-        plat.setCase(6, 6, Color.BLACK);
+        plat.setCase(7, 8, Color.WHITE);
+        plat.setCase(8, 8, Color.BLACK);
         
-        //affichage tableau
-        plat.afficheTab();
+        //test inRange
+        assertEquals(verif.inRange(-1, 0, plat.getNbRows(), plat.getNbCols()), false);
+        assertEquals(verif.inRange(5, 5, plat.getNbRows(), plat.getNbCols()), true);
+        assertEquals(verif.inRange(0, 10, plat.getNbRows(), plat.getNbCols()), false);
+        assertEquals(verif.inRange(2, 9, plat.getNbRows(), plat.getNbCols()), true);
+        assertEquals(verif.inRange(10, 10, plat.getNbRows(), plat.getNbCols()), true);
         
-        //vérification de la victoire
-        assertEquals(jeu.checkWin(plat), true);
+        //test pionsVoisins
+        assertEquals(verif.pionsVoisins(plat, new Case(1, 1)), true);
+        assertEquals(verif.pionsVoisins(plat, new Case(2, 3)), true);
+        assertEquals(verif.pionsVoisins(plat, new Case(5, 5)), false);
         
-        //placement des pions
-        plat.setCase(10, 1, Color.WHITE);
-        plat.setCase(9, 2, Color.WHITE);
-        plat.setCase(8, 3, Color.WHITE);
-        plat.setCase(7, 4, Color.WHITE);
-        plat.setCase(6, 5, Color.WHITE);
-        
-        //affichage tableau
-        plat.afficheTab();
-        
-        //vérification de la victoire
-        assertEquals(jeu.checkWin(plat), true);
+        //test poseFree
+        assertEquals(verif.poseFree(new Case(1, 1), plat).size(), 2);
+        assertEquals(verif.poseFree(new Case(2, 2), plat).size(), 8);
+        assertEquals(verif.poseFree(new Case(8, 7), plat).size(), 5);
         
     }
 

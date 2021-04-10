@@ -35,7 +35,7 @@ public class Utils {
      * @param maxC, numéro max de la colonne
      * @return true si les conditions sont respectées, sinon false
      */
-    boolean inRange(int row, int col, int maxR, int maxC){if(row>0||row<maxR||col>0||col<maxC){return false;} return true;}
+    public boolean inRange(int row, int col, int maxR, int maxC){if(row<=0||row>maxR||col<=0||col>maxC){return false;} return true;}
     
     /**
      * Vérifie la présence de pions dans les cases autour d'une case spécifique
@@ -96,31 +96,31 @@ public class Utils {
         }
         //Nord-Est
         if(inRange(c.getRow()-1, c.getCol()+1, platJeu.getNbRows(), platJeu.getNbCols())){
-            if(platJeu.getCase(c.getRow()-1, c.getCol()+1)!=Color.NONE){Case voisin = new Case(c.getRow()-1, c.getCol()+1); voisins.add(voisin);}
+            if(platJeu.getCase(c.getRow()-1, c.getCol()+1)==Color.NONE){Case voisin = new Case(c.getRow()-1, c.getCol()+1); voisins.add(voisin);}
         }
         //Est
         if(inRange(c.getRow(), c.getCol()+1, platJeu.getNbRows(), platJeu.getNbCols())){
-            if(platJeu.getCase(c.getRow(), c.getCol()+1)!=Color.NONE){Case voisin = new Case(c.getRow(), c.getCol()+1); voisins.add(voisin);}
+            if(platJeu.getCase(c.getRow(), c.getCol()+1)==Color.NONE){Case voisin = new Case(c.getRow(), c.getCol()+1); voisins.add(voisin);}
         }
         //Sud-Est
         if(inRange(c.getRow()+1, c.getCol()+1, platJeu.getNbRows(), platJeu.getNbCols())){
-            if(platJeu.getCase(c.getRow()+1, c.getCol()+1)!=Color.NONE){Case voisin = new Case(c.getRow()+1, c.getCol()+1); voisins.add(voisin);}
+            if(platJeu.getCase(c.getRow()+1, c.getCol()+1)==Color.NONE){Case voisin = new Case(c.getRow()+1, c.getCol()+1); voisins.add(voisin);}
         }
         //Sud
         if(inRange(c.getRow()+1, c.getCol(), platJeu.getNbRows(), platJeu.getNbCols())){
-            if(platJeu.getCase(c.getRow()+1, c.getCol())!=Color.NONE){Case voisin = new Case(c.getRow()+1, c.getCol()); voisins.add(voisin);}
+            if(platJeu.getCase(c.getRow()+1, c.getCol())==Color.NONE){Case voisin = new Case(c.getRow()+1, c.getCol()); voisins.add(voisin);}
         }
         //Sud-Ouest
         if(inRange(c.getRow()+1, c.getCol()-1, platJeu.getNbRows(), platJeu.getNbCols())){
-            if(platJeu.getCase(c.getRow()+1, c.getCol()-1)!=Color.NONE){Case voisin = new Case(c.getRow()+1, c.getCol()-1); voisins.add(voisin);}
+            if(platJeu.getCase(c.getRow()+1, c.getCol()-1)==Color.NONE){Case voisin = new Case(c.getRow()+1, c.getCol()-1); voisins.add(voisin);}
         }
         //Ouest
         if(inRange(c.getRow(), c.getCol()-1, platJeu.getNbRows(), platJeu.getNbCols())){
-            if(platJeu.getCase(c.getRow(), c.getCol()-1)!=Color.NONE){Case voisin = new Case(c.getRow(), c.getCol()-1); voisins.add(voisin);}
+            if(platJeu.getCase(c.getRow(), c.getCol()-1)==Color.NONE){Case voisin = new Case(c.getRow(), c.getCol()-1); voisins.add(voisin);}
         }
         //Nord-Ouest
         if(inRange(c.getRow()-1, c.getCol()-1, platJeu.getNbRows(), platJeu.getNbCols())){
-            if(platJeu.getCase(c.getRow()-1, c.getCol()-1)!=Color.NONE){Case voisin = new Case(c.getRow()-1, c.getCol()-1); voisins.add(voisin);}
+            if(platJeu.getCase(c.getRow()-1, c.getCol()-1)==Color.NONE){Case voisin = new Case(c.getRow()-1, c.getCol()-1); voisins.add(voisin);}
         }
         
         return voisins;

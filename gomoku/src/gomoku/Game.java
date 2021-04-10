@@ -107,6 +107,8 @@ public class Game {
             if(checkWin(platJeu)){joueurWin1 = true; break;}
             if(checkDraw(platJeu)){break;}
             
+            nbTour++; //doublon afin d'éviter la possiblité de placement libre
+            
             caseJeu = joueur2.poseJeu(platJeu, nbTour);
             platJeu.setCase(caseJeu.getRow(), caseJeu.getCol(), Color.BLACK);
             pile.add("L'IA joue sur la ligne " + caseJeu.getRow() + " et sur la colonne " + caseJeu.getCol());
@@ -294,7 +296,7 @@ public class Game {
         int cpt2 = 1;
         
         while(cpt1 < 4){
-            if(row+cpt1 < platJeu.getNbRows()+1 && col-cpt2 > platJeu.getNbCols()){
+            if(row+cpt1 < platJeu.getNbRows()+1 && col-cpt2 > 0){ 
                 if(platJeu.getCase(row+cpt1, col-cpt2) == couleur){cpt1++; cpt2++;}
                 else{cpt1 = 6;}
                 if(cpt1 == 4){return true;}
