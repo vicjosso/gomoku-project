@@ -1,5 +1,7 @@
 package gomoku;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Victor Josso
@@ -15,36 +17,34 @@ public class IA implements Players{
      * @return pose, case sélectionnee par l'IA
      */
     @Override
-    public Case poseJeu(Plateau platJeu){
+    public Case poseJeu(Plateau platJeu, int nbTour){
+        
+        Utils verif = new Utils();
+        ArrayList<Case> poseP = new ArrayList<Case>();
+        
         System.out.println("L'IA joue....");
         
         int row = 0;
         int col = 0;
         
+        Case pose = null;
+        
         boolean valide = false;
         
-        /*
-        for(int i = 0; i < platJeu.getNbRows(); i++)
-        {
-            for(int j = 0; j < platJeu.getNbCols(); j++)
-            {
-                if(platJeu.getCase(i, j) == Color.WHITE){}
-                else if(platJeu.getCase(i, j) == Color.BLACK){}
-            }
-        }
-        */
-        
         do {
+            label:
+            for(int i=1;i<platJeu.getNbRows()+1; i++){
+                for(int j=1;j<platJeu.getNbCols()+1; j++){
+                    if(platJeu.getCase(i, j) != Color.NONE){
+                        poseP = verif.poseFree(new Case(i, j), platJeu);
+                        pose = poseP.get(0);
+                        if(pose!=null){ row=i; col=j; break label;}
+                    }
+                }
+            } 
             
-            row = 1+Math.round(platJeu.getNbRows()-1); 
-            col = 1+Math.round(platJeu.getNbCols()-1); 
-            
-            if(platJeu.getCase(row, col) == Color.NONE){ valide = true;} //verifier offset
+            if(platJeu.getCase(row, col) == Color.NONE && verif.pionsVoisins(platJeu, new Case(row, col))){ valide = true;} 
         } while(!valide);
-        
-        
-        
-        Case pose = new Case(row, col);
         
         return pose;
     }

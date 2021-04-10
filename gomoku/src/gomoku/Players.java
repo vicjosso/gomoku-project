@@ -13,6 +13,6 @@ public interface Players {
      * @param platJeu, plateau sur lequel le jeu se déroule
      * @return pose, placement de la case 
      */
-    Case poseJeu(Plateau platJeu);
+    Case poseJeu(Plateau platJeu, int nbTour);
     
 }

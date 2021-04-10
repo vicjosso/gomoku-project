@@ -28,6 +28,8 @@ public class Game {
         
         Case caseJeu = new Case(0, 0);
         
+        int nbTour = 1;
+        
         boolean win = false;
         boolean joueurWin1 = false;
         
@@ -42,7 +44,7 @@ public class Game {
         
         while(!win){
                  
-            caseJeu = joueur.poseJeu(platJeu);
+            caseJeu = joueur.poseJeu(platJeu, nbTour);
             platJeu.setCase(caseJeu.getRow(), caseJeu.getCol(), Color.WHITE);
             pile.add("Le joueur joue sur la ligne " + caseJeu.getRow() + " et sur la colonne " + caseJeu.getCol());
             
@@ -50,13 +52,15 @@ public class Game {
             if(checkWin(platJeu)){joueurWin1 = true; break;}
             if(checkDraw(platJeu)){break;}
             
-            caseJeu = ia.poseJeu(platJeu);
+            caseJeu = ia.poseJeu(platJeu, nbTour);
             platJeu.setCase(caseJeu.getRow(), caseJeu.getCol(), Color.BLACK);
             pile.add("L'IA joue sur la ligne " + caseJeu.getRow() + " et sur la colonne " + caseJeu.getCol());
             
             platJeu.afficheTab();
             win = checkWin(platJeu);
             if(checkDraw(platJeu)){break;}
+            
+            nbTour++;
             
         }
         
@@ -79,6 +83,8 @@ public class Game {
         
         Case caseJeu = new Case(0, 0);
         
+        int nbTour = 1;
+        
         boolean win = false;
         boolean joueurWin1 = false;
         
@@ -93,7 +99,7 @@ public class Game {
         
         while(!win){
                  
-            caseJeu = joueur1.poseJeu(platJeu);
+            caseJeu = joueur1.poseJeu(platJeu, nbTour);
             platJeu.setCase(caseJeu.getRow(), caseJeu.getCol(), Color.WHITE);
             pile.add("Le joueur joue sur la ligne " + caseJeu.getRow() + " et sur la colonne " + caseJeu.getCol());
             
@@ -101,13 +107,15 @@ public class Game {
             if(checkWin(platJeu)){joueurWin1 = true; break;}
             if(checkDraw(platJeu)){break;}
             
-            caseJeu = joueur2.poseJeu(platJeu);
+            caseJeu = joueur2.poseJeu(platJeu, nbTour);
             platJeu.setCase(caseJeu.getRow(), caseJeu.getCol(), Color.BLACK);
             pile.add("L'IA joue sur la ligne " + caseJeu.getRow() + " et sur la colonne " + caseJeu.getCol());
             
             platJeu.afficheTab();
             win = checkWin(platJeu);
             if(checkDraw(platJeu)){break;}
+            
+            nbTour++;
             
         }
         
@@ -286,7 +294,7 @@ public class Game {
         int cpt2 = 1;
         
         while(cpt1 < 4){
-            if(row+cpt1 < platJeu.getNbRows()+1 && col-cpt2 < platJeu.getNbCols()+1){
+            if(row+cpt1 < platJeu.getNbRows()+1 && col-cpt2 > platJeu.getNbCols()){
                 if(platJeu.getCase(row+cpt1, col-cpt2) == couleur){cpt1++; cpt2++;}
                 else{cpt1 = 6;}
                 if(cpt1 == 4){return true;}

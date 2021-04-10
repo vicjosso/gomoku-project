@@ -16,10 +16,11 @@ public class Joueur implements Players {
     /**
      * Determine en fonction du choix du joueur la pose d'un pion
      * @param platJeu, plateau sur lequel le jeu se déroule
+     * @param nbTour, indique le nombre du tour
      * @return pose, case sélectionnée par le joueur
      */
     @Override
-    public Case poseJeu(Plateau platJeu){
+    public Case poseJeu(Plateau platJeu, int nbTour){
         
         Utils verif = new Utils();
         
@@ -51,7 +52,7 @@ public class Joueur implements Players {
             }while(!verif.inputValidation(colonne, platJeu.getNbCols()));
             col = Integer.parseInt(colonne);
             
-            if(platJeu.getCase(row, col) == Color.NONE){ valide = true;} //verifier offset
+            if(platJeu.getCase(row, col) == Color.NONE && verif.pionsVoisins(platJeu, new Case(row, col)) || nbTour == 1){ valide = true;} 
             else { System.out.println("-> Placement invalide"); };
         } while(!valide);
         
