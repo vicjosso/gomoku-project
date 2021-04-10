@@ -37,13 +37,16 @@ public class IA implements Players{
                 for(int j=1;j<platJeu.getNbCols()+1; j++){
                     if(platJeu.getCase(i, j) != Color.NONE){
                         poseP = verif.poseFree(new Case(i, j), platJeu);
-                        pose = poseP.get(0);
-                        if(pose!=null){ row=i; col=j; break label;}
+                        if(poseP.size() != 0){
+                            pose = poseP.get(0);
+                            if(pose!=null){ row=pose.getRow(); col=pose.getCol(); break label;}
+                        }
                     }
                 }
-            } 
+            }
+         
             
-            if(platJeu.getCase(row, col) == Color.NONE && verif.pionsVoisins(platJeu, new Case(row, col))){ valide = true;} 
+            if(platJeu.getCase(row, col) == Color.NONE){ valide = true;} 
         } while(!valide);
         
         return pose;

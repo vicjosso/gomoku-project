@@ -18,7 +18,7 @@ public class Utils {
         
         try{
                 int ref = Integer.parseInt(refS);
-                if(ref < 0 || ref > refMax){ System.out.println("-> Indice invalide");}
+                if(ref <= 0 || ref > refMax){ System.out.println("-> Indice invalide");}
                 else { return true; }
             } catch (Exception e){
                 System.out.println("-> Tu n'as pas rentré un nombre");

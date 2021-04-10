@@ -49,7 +49,7 @@ public class Game {
             pile.add("Le joueur joue sur la ligne " + caseJeu.getRow() + " et sur la colonne " + caseJeu.getCol());
             
             platJeu.afficheTab();
-            if(checkWin(platJeu)){joueurWin1 = true; break;}
+            if(checkWin(platJeu)){joueurWin1 = true; win = true; break;}
             if(checkDraw(platJeu)){break;}
             
             caseJeu = ia.poseJeu(platJeu, nbTour);
@@ -104,7 +104,7 @@ public class Game {
             pile.add("Le joueur joue sur la ligne " + caseJeu.getRow() + " et sur la colonne " + caseJeu.getCol());
             
             platJeu.afficheTab();
-            if(checkWin(platJeu)){joueurWin1 = true; break;}
+            if(checkWin(platJeu)){joueurWin1 = true; win = true; break;}
             if(checkDraw(platJeu)){break;}
             
             nbTour++; //doublon afin d'éviter la possiblité de placement libre
@@ -250,11 +250,11 @@ public class Game {
     private boolean checkLine(int row, int col, Color couleur, Plateau platJeu){
         int cpt = 1;
         
-        while(cpt < 4){
+        while(cpt < 5){
             if(col+cpt < platJeu.getNbCols()+1){
                 if(platJeu.getCase(row, col+cpt) == couleur){cpt++;}
                 else{cpt = 6;}
-                if(cpt == 4){return true;}
+                if(cpt == 5){return true;}
             } else { return false;}
         }
         
@@ -272,11 +272,11 @@ public class Game {
     private boolean checkCol(int row, int col, Color couleur, Plateau platJeu){
         int cpt = 1;
         
-        while(cpt < 4){
+        while(cpt < 5){
             if(row+cpt < platJeu.getNbRows()+1){
                 if(platJeu.getCase(row+cpt, col) == couleur){cpt++;}
                 else{cpt = 6;}
-                if(cpt == 4){return true;}
+                if(cpt == 5){return true;}
             } else {return false;}
         }
         
@@ -295,11 +295,11 @@ public class Game {
         int cpt1 = 1;
         int cpt2 = 1;
         
-        while(cpt1 < 4){
+        while(cpt1 < 5){
             if(row+cpt1 < platJeu.getNbRows()+1 && col-cpt2 > 0){ 
                 if(platJeu.getCase(row+cpt1, col-cpt2) == couleur){cpt1++; cpt2++;}
                 else{cpt1 = 6;}
-                if(cpt1 == 4){return true;}
+                if(cpt1 == 5){return true;}
             } else {return false;}
         }
         
@@ -318,11 +318,11 @@ public class Game {
         int cpt1 = 1;
         int cpt2 = 1;
         
-        while(cpt1 < 4){
+        while(cpt1 < 5){
             if(row+cpt1 < platJeu.getNbRows()+1 && col+cpt2 < platJeu.getNbCols()+1){
                 if(platJeu.getCase(row+cpt1, col+cpt2) == couleur){cpt1++; cpt2++;}
                 else{cpt1 = 6;}
-                if(cpt1 == 4){return true;}
+                if(cpt1 == 5){return true;}
             } else {return false;}
         }
         
@@ -341,7 +341,7 @@ public class Game {
             if(winJoueur1){ System.out.println("-> Vous avez gagnez"); } else {System.out.println("-> Victoire de l'adversaire");}
         } else {System.out.println("-> Vous avez fait une égalité");}
         
-        System.out.println("Voulez-vous voir l'historique de placement des pions?");
+        System.out.println("Voulez-vous voir l'historique de placement des pions?(y/n) :");
             boolean loop = true;
             String commande = in.nextLine().trim();
             
@@ -349,6 +349,7 @@ public class Game {
                 switch (commande){
                     case "y":
                         for(String s : pile){System.out.println(s);}
+                        System.out.println("");
                         loop = false;
                         break;
                     case "n":
